@@ -1,0 +1,24 @@
+
+    <div class="bg-white sm:w-1/2 w-full  flex items-center ps-2 py-1 rounded-lg shadow-md">
+        <i class="fa-solid fa-magnifying-glass px-2"></i>
+        <input [(ngModel)]="searchData" type="text" class="bg-transparent w-full py-1 px-2 outline-none " />
+    </div>
+    <div class="gap-3 flex flex-wrap justify-center ">
+    
+        <div *ngFor="let i of eventData | search: searchData" class="card card-compact flex bg-base-100 md:w-96 w-72 shadow-xl">
+            <figure>
+                <img src="{{i.image}}" alt="event Image" class="w-full h-56" />
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">{{i.event_name}}</h2>
+                <p>{{i.description.slice(0,50)+'...'}}</p>
+                <div class="card-actions justify-between">
+                    <div class="flex flex-col gap-0 font-semibold">
+                        <p class="text-md">{{i.date}}</p>
+                        <p class="text-md">{{i.time}}</p>
+                    </div>
+                    <button routerLink="single/{{i.id}}" class="btn btn-primary">More..</button>
+                </div>
+            </div>
+        </div>
+    </div>

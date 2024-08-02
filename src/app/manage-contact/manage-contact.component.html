@@ -1,0 +1,23 @@
+<div class="overflow-x-auto">
+    <table class="table">
+        <!-- head -->
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of messageList">
+                <th></th>
+                <td>
+                    <div class="font-bold">{{i.name}}</div>
+                </td>
+                <td>{{i.email}}</td>
+                <td>{{i.message}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,20 @@
+<div class="flex sm:p-10 p-5 mt-5 gap-10 sm:flex-row flex-col">
+    <div class="sm:w-1/2 w-full ">
+        <img src="{{singleData.image}}" alt="" class="w-full  sm:h-[29rem] h-72 rounded-lg">
+    </div>
+    <div class="sm:w-1/2 w-full flex flex-col gap-8">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="font-semibold text-3xl">{{singleData.event_name}}</h1>
+                <h4 class="text-sm ">{{singleData.location}}</h4>
+            </div>
+            <div class="text-xs flex flex-col gap-2 font-semibold">
+                <p>{{singleData.date}}</p>
+                <p>{{singleData.time}}</p>
+            </div>
+        </div>
+        <p class="text-justify">
+            {{singleData.description}}
+        </p>
+    </div>
+</div>

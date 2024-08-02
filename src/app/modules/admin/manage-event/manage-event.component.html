@@ -1,0 +1,107 @@
+<div class="overflow-x-auto mt-10">
+    <table class="table">
+        <!-- head -->
+        <thead>
+            <tr>
+                <th></th>
+                <th>Event Name</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th class="text-center">Edit</th>
+                <th class="text-center">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of eventData">
+                <th></th>
+                <td>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar">
+                            <div class="mask mask-squircle h-12 w-12">
+                                <img src="{{i.image}}" alt="Avatar Tailwind CSS Component" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-bold">{{i.event_name}}</div>
+                            <div class="text-sm opacity-50 badge">{{i.location}}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>{{i.description.slice(0, 50) + "..."}}</td>
+                <td>{{i.date}}</td>
+                <td>{{i.time}}</td>
+                <th (click)="openModal(i.id)" class="text-center"><i class="fa-regular fa-pen-to-square cursor-pointer"></i></th>
+                <th (click)="deleteEvents(i.id)" class="text-center"><i class="fa-solid fa-xmark cursor-pointer"></i></th>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="isModalVisible" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+        <div class="bg-white p-6 rounded-md">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-semibold">Edit Event</h3>
+                <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700">&times;</button>
+            </div>
+            <div class="mt-4">
+                <form [formGroup]="editEventForm" class="max-w-md mx-auto mt-10 shadow-md p-5 rounded-md w-full bg-white" (ngSubmit)="editEvents()">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input  type="text" formControlName="event_name" id="event_name"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " required [(ngModel)]="singleData.event_name" name="event_name" />
+                        <label for="event_name"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Event
+                            name</label>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" formControlName="description" id="description"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " required [(ngModel)]="singleData.description" name="description" />
+                        <label for="description"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Description</label>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" formControlName="location" id="location"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " required [(ngModel)]="singleData.location" name="location" />
+                        <label for="location"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Location</label>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 md:gap-6">
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="date" formControlName="date" id="date"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required [(ngModel)]="singleData.date" name="date" />
+                            <label for="date"
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Date</label>
+                        </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="time" formControlName="time" id="time"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required [(ngModel)]="singleData.time" name="time" />
+                            <label for="time"
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Time</label>
+                        </div>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" formControlName="image" id="image"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " required [(ngModel)]="singleData.image" name="image" />
+                        <label for="image"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Image</label>
+                    </div>
+
+                    <div class="flex justify-start gap-4">
+                        <button type="submit" (click)="editEvents()"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+                        <button (click)="closeModal()" type="button" class="bg-red-500 text-white px-4 py-2 rounded">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
