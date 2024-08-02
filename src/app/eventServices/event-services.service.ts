@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EventServicesService {
 
-  baseUrl = 'http://localhost:5000'
+  baseUrl = 'https://event-server-vir3.onrender.com'
   constructor(private http: HttpClient) { }
 
 
